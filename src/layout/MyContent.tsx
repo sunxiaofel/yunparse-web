@@ -74,6 +74,7 @@ export default function MyContent() {
   }
 
   const down = async () => {
+    // @ts-ignore
     const url = data.url // 你的音频 URL
     try {
       setLoading(true) // 请求开始，显示loading
@@ -85,6 +86,7 @@ export default function MyContent() {
       const a = document.createElement('a')
       const blobUrl = URL.createObjectURL(blob)
       a.href = blobUrl
+      // @ts-ignore
       a.download = `${data.name} - ${data.ar_name}.mp3` // 自定义文件名
       a.style.display = 'none'
       document.body.appendChild(a)

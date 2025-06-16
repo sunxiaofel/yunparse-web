@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+// @ts-ignore
 import APlayer from 'aplayer'
 import 'aplayer/dist/APlayer.min.css'
 

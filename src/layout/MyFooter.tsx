@@ -1,4 +1,4 @@
-import { Layout, Space, theme } from 'antd'
+import { Layout, theme } from 'antd'
 
 export default function MyFooter() {
   const { useToken } = theme
