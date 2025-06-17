@@ -12,7 +12,7 @@ const MyAPlayer = ({ data }: any) => {
       aplayerInstance.current = new APlayer({
         container: playerRef.current,
         fixed: false,
-        autoplay: true,
+        autoplay: false,
         lrcType: 1,
         audio: [
           {
