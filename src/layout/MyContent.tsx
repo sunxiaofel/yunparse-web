@@ -55,9 +55,11 @@ export default function MyContent() {
 
   const onFinish = async (values: IFormValues) => {
     const { parse_url, parse_level } = values
+    // @ts-ignore
+    const splitUrl = parse_url.match(/https?:\/\/\S+/)[0]
     try {
       setLoading(true) // 请求开始，显示loading
-      const res = await parseMusic({ url: parse_url, level: parse_level, type: 'json' })
+      const res = await parseMusic({ url: splitUrl, level: parse_level, type: 'json' })
       setData(res.data)
       music.setFieldsValue(res.data)
     } catch (error) {
