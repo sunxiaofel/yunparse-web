@@ -7,7 +7,7 @@ interface IMusicArg {
 }
 
 const parseMusic = (arg: IMusicArg) => {
-  return instance.post('/', arg)
+  return instance.post('/music', arg)
 }
 
 export { parseMusic }
