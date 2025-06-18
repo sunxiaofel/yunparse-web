@@ -39,6 +39,15 @@ export default function MyContent() {
     }
   }
 
+  // 验证用户输入的是否是网易云音乐链接
+  // @ts-ignore
+  function isNetEaseMusicLink(url) {
+    if (!Array.isArray(url)) return false
+    const pattern =
+      /^https?:\/\/(music\.163\.com(\/#)?\/song\?[^ ]+|y\.music\.163\.com\/m\/song\?[^ ]+|163cn\.tv\/\w+)$/
+    return pattern.test(url[0].trim())
+  }
+
   const { Title } = Typography
   const { useToken } = theme
   const { token } = useToken()
@@ -55,12 +64,16 @@ export default function MyContent() {
 
   const onFinish = async (values: IFormValues) => {
     const { parse_url, parse_level } = values
+    // if (!isLink(parse_url)) return messageApi.warning('请输入正确的网易云音乐链接！')
     // @ts-ignore
-    const splitUrl = parse_url.match(/https?:\/\/\S+/)[0]
+    const splitUrl = parse_url?.match(/https?:\/\/\S+/)
+    // @ts-ignore
+    if (!isNetEaseMusicLink(splitUrl)) return messageApi.warning('请输入正确的网易云音乐链接！')
     try {
       setData(null)
       setLoading(true) // 请求开始，显示loading
-      const res = await parseMusic({ url: splitUrl, level: parse_level, type: 'json' })
+      // @ts-ignore
+      const res = await parseMusic({ url: splitUrl[0], level: parse_level, type: 'json' })
       setData(res.data)
       music.setFieldsValue(res.data)
     } catch (error) {
