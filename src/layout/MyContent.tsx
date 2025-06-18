@@ -58,6 +58,7 @@ export default function MyContent() {
     // @ts-ignore
     const splitUrl = parse_url.match(/https?:\/\/\S+/)[0]
     try {
+      setData(null)
       setLoading(true) // 请求开始，显示loading
       const res = await parseMusic({ url: splitUrl, level: parse_level, type: 'json' })
       setData(res.data)
