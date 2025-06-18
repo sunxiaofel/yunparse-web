@@ -29,6 +29,7 @@ export default function MyContent() {
   const [music] = Form.useForm()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [tip, setTip] = useState<null | string>(null)
   const onParse = () => {
     // console.log('解析:', input)
     const values = music.getFieldsValue()
@@ -71,6 +72,7 @@ export default function MyContent() {
     if (!isNetEaseMusicLink(splitUrl)) return messageApi.warning('请输入正确的网易云音乐链接！')
     try {
       setData(null)
+      setTip('解析中...')
       setLoading(true) // 请求开始，显示loading
       // @ts-ignore
       const res = await parseMusic({ url: splitUrl[0], level: parse_level, type: 'json' })
@@ -80,6 +82,7 @@ export default function MyContent() {
       console.error(error)
       // 可以提示用户请求失败
     } finally {
+      setTip(null)
       setLoading(false) // 请求结束，隐藏loading
     }
   }
@@ -93,6 +96,7 @@ export default function MyContent() {
     // @ts-ignore
     const url = data.url // 你的音频 URL
     try {
+      setTip('下载中...')
       setLoading(true) // 请求开始，显示loading
       const response = await fetch(url, {
         method: 'GET',
@@ -112,12 +116,13 @@ export default function MyContent() {
     } catch (error) {
       console.error('下载失败：', error)
     } finally {
+      setTip(null)
       setLoading(false) // 请求结束，隐藏loading
     }
   }
 
   return (
-    <Spin spinning={loading} tip="解析中...">
+    <Spin spinning={loading} tip={tip}>
       <Content style={{ padding: 20 }}>
         {contextHolder}
         <Row justify="center" gutter={[16, 16]} style={{ margin: '0 auto' }}>
