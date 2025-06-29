@@ -44,8 +44,9 @@ export default function MyContent() {
   // @ts-ignore
   function isNetEaseMusicLink(url) {
     if (!Array.isArray(url)) return false
-    const pattern =
-      /^https?:\/\/(music\.163\.com(\/#)?\/song\?[^ ]+|y\.music\.163\.com\/m\/song\?[^ ]+|163cn\.tv\/\w+)$/
+    // const pattern =
+    //   /^https?:\/\/(music\.163\.com(\/#)?\/song\?[^ ]+|y\.music\.163\.com\/m\/song\?[^ ]+|163cn\.tv\/\w+)$/
+    const pattern = /^https?:\/\/([a-z0-9-]+\.)*163\.(com|cn)(\/[^?#]*)?([?&]id=\d+)/i
     return pattern.test(url[0].trim())
   }
 
