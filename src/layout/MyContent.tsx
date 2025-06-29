@@ -83,7 +83,7 @@ export default function MyContent() {
       } else {
         setData(null)
         // @ts-ignore
-        messageApi.error(res.msg)
+        messageApi.error(res.data.msg)
       }
       console.log('🚀 ~ onFinish ~ res:', res)
     } catch (error) {
