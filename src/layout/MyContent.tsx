@@ -77,8 +77,13 @@ export default function MyContent() {
       setLoading(true) // 请求开始，显示loading
       // @ts-ignore
       const res = await parseMusic({ url: splitUrl[0], level: parse_level, type: 'json' })
-      setData(res.data)
-      music.setFieldsValue(res.data)
+      if (res.status === 200) {
+        setData(res.data)
+        music.setFieldsValue(res.data)
+      } else {
+        // @ts-ignore
+        messageApi.error(res.msg)
+      }
     } catch (error) {
       console.error(error)
       // 可以提示用户请求失败
